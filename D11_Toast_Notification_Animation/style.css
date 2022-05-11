@@ -1,13 +1,25 @@
+:root {
+  --success: rgb(0, 128, 0);
+  --warning: rgb(255, 165, 0);
+  --error: rgb(255, 0, 0);
+
+  --success-light: rgba(0, 128, 0, 0.4);
+  --warning-light: rgba(255, 165, 0, 0.4);
+  --error-light: rgba(255, 0, 0, 0.4);
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300&display=swap");
+
 body {
   height: 100vh;
   display: flex;
-  font-family: sans-serif;
+  font-family: "Poppins";
   justify-content: center;
   align-items: center;
   background: #ecf0f1;
@@ -25,11 +37,112 @@ button {
 }
 
 .success-btn {
-  background: rgb(0, 128, 0);
+  background: var(--success);
 }
 .warning-btn {
-  background: rgb(255, 165, 0);
+  background: var(--warning);
 }
 .error-btn {
-  background: rgb(255, 0, 0);
+  background: var(--error);
+}
+
+#toasts {
+  position: fixed;
+  top: 10px;
+  right: 30px;
+}
+
+.toast {
+  padding: 20px;
+  border-radius: 6px;
+  color: white;
+  font-size: 20px;
+  overflow: hidden;
+  animation: slide_show 2s ease forwards; /*forwards giúp giữ lại trạng thái cuối cùng sau khi chạy*/
+  margin-bottom: 12px;
+}
+
+.toast i {
+  margin-right: 20px;
+  font-size: 26px;
+}
+
+.toast .countdown {
+  width: 100%;
+  height: 4px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  animation: countdownAnimation 4s ease;
+}
+
+.toast.success .countdown {
+  background: var(--success);
+}
+.toast.warning .countdown {
+  background: var(--warning);
+}
+.toast.error .countdown {
+  background: var(--error);
+}
+
+.toast.success {
+  background: var(--success-light);
+  border-left: 6px solid var(--success);
+}
+.toast.warning {
+  background: var(--warning-light);
+  border-left: 6px solid var(--warning);
+}
+.toast.error {
+  background: var(--error-light);
+  border-left: 6px solid var(--error);
+}
+
+@keyframes countdownAnimation {
+  0% {
+    width: 100%;
+  }
+
+  100% {
+    width: 0%;
+  }
+}
+
+@keyframes slide_show {
+  0% {
+    transform: translateX(
+      100%
+    ); /*dịch chuyển sang phải 1 đoạn bằng 100% chiều dài thẻ cha*/
+  }
+
+  25% {
+    transform: translateX(-10%);
+  }
+
+  50% {
+    transform: translateX(10%);
+  }
+
+  100% {
+    transform: translateX(10px);
+  }
+}
+
+@keyframes slide_hide {
+  0% {
+    transform: translateX(-10px);
+  }
+
+  25% {
+    transform: translateX(5%);
+  }
+
+  50% {
+    transform: translateX(-5%);
+  }
+
+  100% {
+    transform: translateX(120%);
+  }
 }
